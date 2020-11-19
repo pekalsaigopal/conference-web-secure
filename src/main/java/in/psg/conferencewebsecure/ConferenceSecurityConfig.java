@@ -1,7 +1,9 @@
 package in.psg.conferencewebsecure;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +14,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer properties(){
+        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        return propertySourcesPlaceholderConfigurer;
+    }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
@@ -31,15 +41,24 @@ public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.ldapAuthentication()
-                .userDnPatterns("uid={0},ou=people")
-                .groupSearchBase("ou=groups")
+//        auth.ldapAuthentication()
+//                .userDnPatterns("uid={0},ou=people")
+//                .groupSearchBase("ou=groups")
+//                .contextSource()
+//                .url("ldap://localhost:8389/dc=ebank,dc=com")
+//                .and()
+//                .passwordCompare()
+//                .passwordEncoder(passwordEncoder())
+//                .passwordAttribute("userPassword");
+
+        auth
+                .ldapAuthentication()
                 .contextSource()
-                .url("ldap://localhost:8389/dc=ebank,dc=com")
+                .url("ldap://ldap.forumsys.com:389/" + "dc=example,dc=com")
+                .managerDn("cn=read-only-admin,dc=example,dc=com")
+                .managerPassword("password")
                 .and()
-                .passwordCompare()
-                .passwordEncoder(passwordEncoder())
-                .passwordAttribute("userPassword");
+                .userDnPatterns(" uid={0}");
     }
 
     @Bean
