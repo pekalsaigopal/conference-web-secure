@@ -51,6 +51,12 @@ public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .passwordEncoder(passwordEncoder())
 //                .passwordAttribute("userPassword");
 
+        /*
+        Test the app using the below credentials
+        User : riemann ,gauss ,euler ,euclid
+        Password: password
+         */
+
         auth
                 .ldapAuthentication()
                 .contextSource()
