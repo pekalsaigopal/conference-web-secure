@@ -1,0 +1,14 @@
+package in.psg.conferencewebsecure;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class ConferenceWebSecureApplication extends SpringBootServletInitializer {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ConferenceWebSecureApplication.class, args);
+    }
+
+}
